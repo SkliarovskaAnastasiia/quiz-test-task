@@ -12,7 +12,7 @@ export function Providers({ children }: { children: ReactNode }) {
       <Box
         sx={{
           width: '100%',
-          maxWidth: 1240,
+          maxWidth: 1024,
           height: '100%',
           mx: 'auto',
           px: { xs: 2, sm: 3, md: 4 },
