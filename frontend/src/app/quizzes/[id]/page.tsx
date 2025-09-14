@@ -10,6 +10,7 @@ import {
   Paper,
   Radio,
   RadioGroup,
+  Stack,
   TextField,
   Typography,
 } from '@mui/material';
@@ -26,7 +27,16 @@ const QuizDetailsPage = () => {
   });
 
   return isLoading ? (
-    <CircularProgress />
+    <Stack
+      sx={{
+        width: '100%',
+        height: '100vh',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <CircularProgress />
+    </Stack>
   ) : (
     <Box>
       <Typography

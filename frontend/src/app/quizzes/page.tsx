@@ -2,14 +2,14 @@
 import { Quiz } from '@/types';
 import { getAllQuizzes } from '@/services/api';
 import { useRouter } from 'next/navigation';
-import { Button, Stack, Typography } from '@mui/material';
+import { Button, CircularProgress, Stack, Typography } from '@mui/material';
 import { QuizList } from '@/components/QuizList';
 import { useQuery } from '@tanstack/react-query';
 
 const QuizzesPage = () => {
   const router = useRouter();
 
-  const { data: quizzes = [] } = useQuery<Quiz[]>({
+  const { data: quizzes = [], isLoading } = useQuery<Quiz[]>({
     queryKey: ['quizzes'],
     queryFn: getAllQuizzes,
   });
@@ -38,7 +38,20 @@ const QuizzesPage = () => {
         </Button>
       </Stack>
 
-      <QuizList data={quizzes} />
+      {isLoading && (
+        <Stack
+          sx={{
+            width: '100%',
+            height: '100vh',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <CircularProgress />
+        </Stack>
+      )}
+
+      {!isLoading && <QuizList data={quizzes} />}
     </>
   );
 };
