@@ -1,5 +1,7 @@
 # quiz-test-task
 
+Clone the repository
+
 1. Backend setup
    Install dependencies, run:
    cd backend
@@ -53,32 +55,32 @@ Option 2: Using the API
 
 body must be like this:
 
-```json {
-"title": "France Quiz",
-"questions": [
-   {
-   "text": "What is the capital of France?",
-   "type": "INPUT",
-   "correctAnswer": "Paris",
-
-   },
-   {
-   "text": "Is France in Europe?",
-   "type": "BOOLEAN",
-   "options": [
-      { "text": "True", "isCorrect": true },
-      { "text": "False", "isCorrect": false },
-   ]
-   },
-   {
-   "text": "Which of the following are French cities?",
-   "type": "CHECKBOX",
-   "options": [
-      { "text": "Lyon", "isCorrect": true },
-      { "text": "Berlin", "isCorrect": false },
-      { "text": "Marseille", "isCorrect": true }
-   ]
-   }
-]
+```json
+{
+  "title": "France Quiz",
+  "questions": [
+    {
+      "text": "What is the capital of France?",
+      "type": "INPUT",
+      "correctAnswer": "Paris"
+    },
+    {
+      "text": "Is France in Europe?",
+      "type": "BOOLEAN",
+      "options": [
+        { "text": "True", "isCorrect": true },
+        { "text": "False", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "Which of the following are French cities?",
+      "type": "CHECKBOX",
+      "options": [
+        { "text": "Lyon", "isCorrect": true },
+        { "text": "Berlin", "isCorrect": false },
+        { "text": "Marseille", "isCorrect": true }
+      ]
+    }
+  ]
 }
 ```
