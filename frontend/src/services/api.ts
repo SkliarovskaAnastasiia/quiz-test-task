@@ -12,7 +12,7 @@ export const getAllQuizzes = async () => {
 
 export const getQuizById = async (id: number) => {
   const response = await api.get(`/quizzes/${id}`);
-  return response.data;
+  return response.data.data;
 };
 
 export const createQuiz = async (quizData: CreateQuizBody) => {

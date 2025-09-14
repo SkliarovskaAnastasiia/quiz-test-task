@@ -5,7 +5,7 @@ export interface QuestionOption {
 
 export type QuestionType = 'BOOLEAN' | 'INPUT' | 'CHECKBOX';
 
-export interface Question {
+export interface CreateQuestion {
   text: string;
   type: QuestionType;
   options?: QuestionOption[];
@@ -14,7 +14,15 @@ export interface Question {
 
 export interface CreateQuizBody {
   title: string;
-  questions: Question[];
+  questions: CreateQuestion[];
+}
+
+interface Question {
+  id: number;
+  text: string;
+  type: QuestionType;
+  options?: QuestionOption[];
+  correctAnswer?: string;
 }
 
 export interface Quiz {

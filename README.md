@@ -1,116 +1,84 @@
 # quiz-test-task
 
-1. Start the Backend
-   Install dependencies
+1. Backend setup
+   Install dependencies, run:
    cd backend
    npm install
 
-Database setup
+   Create .env file
+   add DATABASE_URL="file:./dev.db" and PORT=8080
 
-Generate Prisma client:
+- Database setup
+  - Generate Prisma client:
+    run: npx prisma generate
+  - Apply migrations (reset database if needed):
+    run: npx prisma migrate dev --name init
+  - Start backend in development mode
+    run: npm run dev
 
-npx prisma generate
+By default, backend will run on http://localhost:8080
 
-Apply migrations (reset database if needed):
-
-npx prisma migrate dev --name init
-
-Start backend in development mode
-npm run dev
-
-By default, backend will run on http://localhost:5000
-.
-
-2. Start the Frontend
-   Install dependencies
+2. Frontend setup
+   Install dependencies, run:
    cd frontend
    npm install
 
-Start frontend in development mode
-npm run dev
+   Create .env.local file
+   add NEXT_PUBLIC_API_URL=http://localhost:8080
+
+- Start frontend in development mode
+  run: npm run dev
 
 By default, frontend will run on http://localhost:3000
-.
 
-3. Database Overview
+3. Create a Quiz
+   You can create a quiz either through the frontend UI or directly via the API.
 
-The project uses SQLite with Prisma ORM.
+Option 1: Using the Frontend
 
-Schema includes:
+- Start the backend (npm run dev in /backend)
+- Start the frontend (npm run dev in /frontend)
+- Open http://localhost:3000 in your browser
+- Go to the Create Quiz page
+- Enter:
+  - Quiz title
+  - Questions (choose type: Short answer, True/False, or Multiple)
+  - Add correct answers
+- Submit the form — the quiz will be saved to the database.
 
-Quiz
+Option 2: Using the API
 
-id (Int, auto-increment)
+- Send a POST request to:
+  POST http://localhost:8080/quizzes
 
-title (String)
+body must be like this:
 
-createdAt (DateTime)
-
-questions (Relation)
-
-Question
-
-id (Int, auto-increment)
-
-text (String)
-
-type (Enum: BOOLEAN, INPUT, CHECKBOX)
-
-quizId (Relation → Quiz)
-
-options (Relation → QuestionOption[])
-
-correctAnswer (String, optional – for INPUT type)
-
-QuestionOption
-
-id (Int, auto-increment)
-
-text (String)
-
-isCorrect (Boolean)
-
-questionId (Relation → Question)
-
-4. API Endpoints
-   Get all quizzes
-   GET /quizzes
-
-Get quiz by ID
-GET /quizzes/:id
-
-Create a quiz
-POST /quizzes
-
-Body example:
-
-{
-"title": "General Knowledge Quiz",
+```json {
+"title": "France Quiz",
 "questions": [
-{
-"text": "Is the Earth round?",
-"type": "BOOLEAN",
-"options": [
-{ "text": "True", "isCorrect": true },
-{ "text": "False", "isCorrect": false }
-]
-},
-{
-"text": "What is the capital of France?",
-"type": "INPUT",
-"correctAnswer": "Paris"
-},
-{
-"text": "Which of these are programming languages?",
-"type": "CHECKBOX",
-"options": [
-{ "text": "Python", "isCorrect": true },
-{ "text": "JavaScript", "isCorrect": true },
-{ "text": "Banana", "isCorrect": false }
-]
-}
-]
-}
+   {
+   "text": "What is the capital of France?",
+   "type": "INPUT",
+   "correctAnswer": "Paris",
 
-Delete quiz
-DELETE /quizzes/:id
+   },
+   {
+   "text": "Is France in Europe?",
+   "type": "BOOLEAN",
+   "options": [
+      { "text": "True", "isCorrect": true },
+      { "text": "False", "isCorrect": false },
+   ]
+   },
+   {
+   "text": "Which of the following are French cities?",
+   "type": "CHECKBOX",
+   "options": [
+      { "text": "Lyon", "isCorrect": true },
+      { "text": "Berlin", "isCorrect": false },
+      { "text": "Marseille", "isCorrect": true }
+   ]
+   }
+]
+}
+```
