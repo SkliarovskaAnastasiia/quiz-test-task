@@ -1,15 +1,15 @@
-import { Request, Response } from "express";
-import { PrismaClient } from "@prisma/client";
-import { CreateQuizInput } from "../validation/quiz";
+import { Request, Response } from 'express';
+import { PrismaClient } from '@prisma/client';
+import { CreateQuizInput } from '../validation/quiz';
 
 const prisma = new PrismaClient();
 
 export const getAllQuizzes = async (req: Request, res: Response) => {
   const quizzes = await prisma.quiz.findMany({
-    include: { questions: true },
+    include: { questions: { include: { options: true } } },
   });
 
-  res.json({ status: 200, quizzes });
+  res.json({ status: 200, data: quizzes });
 };
 
 export const getQuizById = async (req: Request, res: Response) => {
@@ -21,10 +21,10 @@ export const getQuizById = async (req: Request, res: Response) => {
   });
 
   if (!quiz) {
-    return res.status(404).json({ status: 404, message: "Quiz not found" });
+    return res.status(404).json({ status: 404, message: 'Quiz not found' });
   }
 
-  res.json({ status: 200, quiz });
+  res.json({ status: 200, data: quiz });
 };
 
 export const createQuiz = async (req: Request, res: Response) => {
@@ -37,16 +37,16 @@ export const createQuiz = async (req: Request, res: Response) => {
         create: questions.map((q) => ({
           text: q.text,
           type: q.type,
-          correctAnswer: q.type === "INPUT" ? q.correctAnswer : undefined,
+          correctAnswer: q.type === 'INPUT' ? q.correctAnswer : undefined,
           options:
-            q.options && q.type !== "INPUT" ? { create: q.options } : undefined,
+            q.options && q.type !== 'INPUT' ? { create: q.options } : undefined,
         })),
       },
     },
     include: { questions: { include: { options: true } } },
   });
 
-  res.json({ status: 201, quiz });
+  res.json({ status: 201, data: quiz });
 };
 
 export const deleteQuiz = async (req: Request, res: Response) => {

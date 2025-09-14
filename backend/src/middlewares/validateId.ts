@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from 'express';
 
 export const validateId = (req: Request, res: Response, next: NextFunction) => {
   const { id } = req.params;
@@ -8,7 +8,7 @@ export const validateId = (req: Request, res: Response, next: NextFunction) => {
   if (isNaN(parsedId) || parsedId <= 0) {
     return next({
       status: 400,
-      message: "Invalid ID. ID must be a positive number.",
+      message: 'Invalid ID. ID must be a positive number.',
     });
   }
 

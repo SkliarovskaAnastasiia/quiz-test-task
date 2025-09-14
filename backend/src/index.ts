@@ -1,8 +1,8 @@
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-import quizRouter from "./routes/quizRoures";
-import errorHandler from "./middlewares/errorHandler";
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import quizRouter from './routes/quizRoures';
+import errorHandler from './middlewares/errorHandler';
 
 dotenv.config();
 

@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction, RequestHandler } from "express";
+import { Request, Response, NextFunction, RequestHandler } from 'express';
 
 export const ctrlWrapper = (controller: RequestHandler): RequestHandler => {
   return async (req: Request, res: Response, next: NextFunction) => {

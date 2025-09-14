@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from "express";
-import { ZodObject, ZodError } from "zod";
+import { Request, Response, NextFunction } from 'express';
+import { ZodObject, ZodError } from 'zod';
 
 export const validateBody =
   (schema: ZodObject) => (req: Request, res: Response, next: NextFunction) => {
@@ -10,7 +10,7 @@ export const validateBody =
       if (error instanceof ZodError) {
         return next({
           status: 400,
-          message: "Validation error",
+          message: 'Validation error',
           errors: error.issues,
         });
       }
